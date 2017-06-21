@@ -30,6 +30,7 @@ public:
     float getDS()const{return m_dS;}
     void setDL(float value){m_dL=value;}
     float getDL()const{return m_dL;}
+		QuadCommand _quadCommand;
 
 protected:
     CGLProgramWithUnifos*m_program_adjustColorHSL;

@@ -59,7 +59,6 @@ void CcolorAdjustSprite::draw(Renderer *renderer, const Mat4 &transform, uint32_
     
     //draw quad
     {
-		QuadCommand _quadCommand;
         _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
         renderer->addCommand(&_quadCommand);
     }
