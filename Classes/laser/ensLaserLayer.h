@@ -8,6 +8,7 @@ using namespace cocos2d::extension;
 #include "ensCommon.h"
 class CensHalfLaser:public CCSprite{
 public:
+		QuadCommand _quadCommand;
     CensHalfLaser(){
         m_program=NULL;
         m_maskTex=NULL;

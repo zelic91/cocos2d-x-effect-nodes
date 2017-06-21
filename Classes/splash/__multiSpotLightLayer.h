@@ -79,6 +79,7 @@ public:
         return this->init(texture);
     }
 
+	QuadCommand _quadCommand;
     void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags){
         //----change shader
         this->setShaderProgram(m_program);
@@ -91,7 +92,6 @@ public:
         program->passUnifoValue1f("u_highlight", m_highlight);
         //draw quad
         {
-		QuadCommand _quadCommand;
             _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
             renderer->addCommand(&_quadCommand);
         }
@@ -163,6 +163,7 @@ public:
         program->passUnifoValue1f("u_highlight", m_highlight);
     
     }
+		QuadCommand _quadCommand;
     void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags){
         
         //----change shader
@@ -172,7 +173,6 @@ public:
         _passUnifoAndBindTexCommand.func = CC_CALLBACK_0(__CmetaBallSprite::onPassUnifoAndBindTex, this,transform,flags);
         Director::getInstance()->getRenderer()->addCommand(&_passUnifoAndBindTexCommand);
         //draw quad
-		QuadCommand _quadCommand;
         _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
         renderer->addCommand(&_quadCommand);
         
