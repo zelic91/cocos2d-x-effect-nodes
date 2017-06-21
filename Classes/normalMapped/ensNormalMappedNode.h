@@ -68,6 +68,7 @@ public:
         if(m_normalMap)m_normalMap->release();
         if(m_lightSprite)m_lightSprite->release();
     };
+		QuadCommand _quadCommand;
 	bool init(const string&texFileName,const string&normalMapFileName) ;
     void draw(Renderer* renderer, const Mat4 &transform, uint32_t flags);
     void setLightSprite(normalMapped::ClightSprite*lightSprite){
