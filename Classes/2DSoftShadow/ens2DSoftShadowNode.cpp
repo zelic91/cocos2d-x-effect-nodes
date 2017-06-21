@@ -42,6 +42,7 @@ bool C2DSoftShadowObj::init(const Cpolygon&polygon){
         //get cocos2d-x build-in uniforms
         program->updateUniforms();
         //get my own uniforms
+		CCLOG(" Uniforms was set");
         program->attachUniform("u_oneDivObjCount");
         //set program
         m_program=program;
@@ -1074,6 +1075,7 @@ bool C2DSoftShadowRoot::init(){
         //get cocos2d-x build-in uniforms
         program->updateUniforms();
         //get my own uniforms
+		CCLOG("Both Uniforms were set");
         program->attachUniform("u_objCount");
         program->attachUniform("u_shadowDarkness");
         //set program
@@ -1165,8 +1167,8 @@ void C2DSoftShadowRoot::visit(Renderer* renderer, const Mat4 &parentTransform, u
         //pass uniform value for m_tempSprite's program
         CGLProgramWithUnifos*program=(CGLProgramWithUnifos*)m_tempSprite->getShaderProgram();
         program->use();//must call this!
-        program->passUnifoValue1i("u_objCount", nObj);
-        program->passUnifoValue1f("u_shadowDarkness", m_shadowDarkness);
+        //program->passUnifoValue1i("u_objCount", nObj);
+        //program->passUnifoValue1f("u_shadowDarkness", m_shadowDarkness);
         //set m_shadowRT's texture to m_tempSprite
         m_tempSprite->setTexture(m_shadowRT->getSprite()->getTexture());
         

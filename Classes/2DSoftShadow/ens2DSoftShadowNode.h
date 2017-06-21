@@ -195,7 +195,7 @@ protected:
     vector<C2DSoftShadowObj*> m_objList;
     ClightNode*m_light;
     bool m_isDrawDebug;
-    float m_shadowDarkness;
+    GLfloat m_shadowDarkness;
     
     CCSprite* m_tempSprite;
     
