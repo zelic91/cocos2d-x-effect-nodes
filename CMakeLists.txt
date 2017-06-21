@@ -37,105 +37,206 @@ include(CocosBuildHelpers)
 
 # Some macro definitions
 if(WINDOWS)
-  if(BUILD_SHARED_LIBS)
-    ADD_DEFINITIONS (-D_USRDLL -D_EXPORT_DLL_ -D_USEGUIDLL -D_USREXDLL -D_USRSTUDIODLL)
-  else()
-    ADD_DEFINITIONS (-DCC_STATIC)
-  endif()
+	if(BUILD_SHARED_LIBS)
+		ADD_DEFINITIONS (-D_USRDLL -D_EXPORT_DLL_ -D_USEGUIDLL -D_USREXDLL -D_USRSTUDIODLL)
+	else()
+		ADD_DEFINITIONS (-DCC_STATIC)
+	endif()
 
-  ADD_DEFINITIONS (-DCOCOS2DXWIN32_EXPORTS -D_WINDOWS -DWIN32 -D_WIN32)
-  set(PLATFORM_FOLDER win32)
+	ADD_DEFINITIONS (-DCOCOS2DXWIN32_EXPORTS -D_WINDOWS -DWIN32 -D_WIN32)
+	set(PLATFORM_FOLDER win32)
 elseif(MACOSX OR APPLE)
-  ADD_DEFINITIONS (-DCC_TARGET_OS_MAC)
-  ADD_DEFINITIONS (-DUSE_FILE32API)
-  set(PLATFORM_FOLDER mac)
+	ADD_DEFINITIONS (-DCC_TARGET_OS_MAC)
+	ADD_DEFINITIONS (-DUSE_FILE32API)
+	set(PLATFORM_FOLDER mac)
 elseif(LINUX)
-  ADD_DEFINITIONS(-DLINUX)
-  set(PLATFORM_FOLDER linux)
+	ADD_DEFINITIONS(-DLINUX)
+	set(PLATFORM_FOLDER linux)
 elseif(ANDROID)
-  ADD_DEFINITIONS (-DUSE_FILE32API)
-  set(PLATFORM_FOLDER android)
+	ADD_DEFINITIONS (-DUSE_FILE32API)
+	set(PLATFORM_FOLDER android)
 else()
-  message( FATAL_ERROR "Unsupported platform, CMake will exit" )
+	message( FATAL_ERROR "Unsupported platform, CMake will exit" )
 endif()
 
 
 # Compiler options
 if(MSVC)
-  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt /NODEFAULTLIB:libcmt")
-  else()
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt")
-  endif()
-  ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS
-                  -wd4251 -wd4244 -wd4334 -wd4005 -wd4820 -wd4710
-                  -wd4514 -wd4056 -wd4996 -wd4099)
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt /NODEFAULTLIB:libcmt")
+	else()
+		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt")
+	endif()
+	ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS
+		-wd4251 -wd4244 -wd4334 -wd4005 -wd4820 -wd4710
+		-wd4514 -wd4056 -wd4996 -wd4099)
 else()
-  if(CMAKE_BUILD_TYPE MATCHES Debug)
-    ADD_DEFINITIONS(-DCOCOS2D_DEBUG=1)
-  endif()
-  set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
-  set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
-  if(CLANG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-  endif()
+	if(CMAKE_BUILD_TYPE MATCHES Debug)
+		ADD_DEFINITIONS(-DCOCOS2D_DEBUG=1)
+	endif()
+	set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
+	set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
+	if(CLANG)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+	endif()
 endif(MSVC)
 
 set(PLATFORM_SPECIFIC_SRC)
 set(PLATFORM_SPECIFIC_HEADERS)
 
 if(MACOSX OR APPLE)
-    set(PLATFORM_SPECIFIC_SRC
-      proj.ios_mac/mac/main.cpp
-    )
+	set(PLATFORM_SPECIFIC_SRC
+		proj.ios_mac/mac/main.cpp
+		)
 elseif(LINUX)
-    set(PLATFORM_SPECIFIC_SRC
-      proj.linux/main.cpp
-    )
+	set(PLATFORM_SPECIFIC_SRC
+		proj.linux/main.cpp
+		)
 elseif ( WIN32 )
-    set(PLATFORM_SPECIFIC_SRC
-      proj.win32/main.cpp
-    )
-    set(PLATFORM_SPECIFIC_HEADERS
-      proj.win32/main.h
-      proj.win32/resource.h
-    )
+	set(PLATFORM_SPECIFIC_SRC
+		proj.win32/main.cpp
+		)
+	set(PLATFORM_SPECIFIC_HEADERS
+		proj.win32/main.h
+		proj.win32/resource.h
+		)
 elseif(ANDROID)
-    set(PLATFORM_SPECIFIC_SRC
-      proj.android-studio/app/jni/hellocpp/main.cpp
-    )
+	set(PLATFORM_SPECIFIC_SRC
+		proj.android-studio/app/jni/hellocpp/main.cpp
+		)
 endif()
 
 include_directories(
-  /usr/local/include/GLFW
-  /usr/include/GLFW
-  ${COCOS2D_ROOT}
-  ${COCOS2D_ROOT}/cocos
-  ${COCOS2D_ROOT}/external
-  ${COCOS2D_ROOT}/cocos/platform
-  ${COCOS2D_ROOT}/cocos/audio/include/
-  Classes
-)
+	/usr/local/include/GLFW
+	/usr/include/GLFW
+	${COCOS2D_ROOT}
+	${COCOS2D_ROOT}/cocos
+	${COCOS2D_ROOT}/external
+	${COCOS2D_ROOT}/cocos/platform
+	${COCOS2D_ROOT}/cocos/audio/include/
+	Classes
+	)
 if ( WIN32 )
-  include_directories(
-  ${COCOS2D_ROOT}/external/glfw3/include/win32
-  ${COCOS2D_ROOT}/external/win32-specific/gles/include/OGLES
-)
+	include_directories(
+		${COCOS2D_ROOT}/external/glfw3/include/win32
+		${COCOS2D_ROOT}/external/win32-specific/gles/include/OGLES
+		)
 endif( WIN32 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
-  ${PLATFORM_SPECIFIC_SRC}
-)
+	Classes/AppDelegate.cpp
+	Classes/HelloWorldScene.cpp
+	Classes/2DSoftShadow/ens2DSoftShadowNode.cpp
+	Classes/2DSoftShadow/layer_2DSoftShadow.cpp
+	Classes/2DSoftShadow/scene_2DSoftShadow.cpp
+	Classes/AppDelegate.cpp
+	Classes/HelloWorldScene.cpp
+	Classes/break/ensBreakNode.cpp
+	Classes/break/layer_break.cpp
+	Classes/break/scene_break.cpp
+	Classes/chooseDemoUI/chooseLayer.cpp
+	Classes/chooseDemoUI/chooseScene.cpp
+	Classes/colorAdjust/ensColorAdjustNode.cpp
+	Classes/colorAdjust/layer_colorAdjust.cpp
+	Classes/colorAdjust/scene_colorAdjust.cpp
+	Classes/common/ensDefine.cpp
+	Classes/common/ensFunc.cpp
+	Classes/common/ensGLProgramWithUnifos.cpp
+	Classes/common/ensIndexVBO.cpp
+	Classes/common/ensMath.cpp
+	Classes/common/ensMesh.cpp
+	Classes/common/ensSimpleClasses.cpp
+	Classes/ghost-like/ensGhostNode.cpp
+	Classes/ghost-like/layer_ghostlike.cpp
+	Classes/ghost-like/scene_ghostlike.cpp
+	Classes/laser/ensLaserLayer.cpp
+	Classes/laser/laserScene.cpp
+	Classes/lightningBolt/ensLightningBoltNode.cpp
+	Classes/lightningBolt/layer_lightningBolt.cpp
+	Classes/lightningBolt/scene_lightningBolt.cpp
+	Classes/normalMapped/ensNormalMappedNode.cpp
+	Classes/normalMapped/layer_normalMapped.cpp
+	Classes/normalMapped/scene_normalMapped.cpp
+	Classes/ripple/ensRippleNode.cpp
+	Classes/ripple/layer_ripple.cpp
+	Classes/ripple/scene_ripple.cpp
+	Classes/ripple_horizontal/ensRipple_horizontalNode.cpp
+	Classes/ripple_horizontal/layer_ripple_horizontal.cpp
+	Classes/ripple_horizontal/scene_ripple_horizontal.cpp
+	Classes/shatter/ensShatterNode.cpp
+	Classes/shatter/layer_shatter.cpp
+	Classes/shatter/scene_shatter.cpp
+	Classes/splash/__multiSpotLightLayer.cpp
+	Classes/splash/ensSplashLayer.cpp
+	Classes/splash/layer_splash.cpp
+	Classes/splash/scene_splash.cpp
+	Classes/tail/ensTailNode.cpp
+	Classes/tail/layer_tail.cpp
+	Classes/tail/scene_tail.cpp
+	Classes/tinyWingsTerrain/ensTinyWingsTerrainNode.cpp
+	Classes/tinyWingsTerrain/layer_tinyWingsTerrain.cpp
+	Classes/tinyWingsTerrain/scene_tinyWingsTerrain.cpp
+	${PLATFORM_SPECIFIC_SRC}
+	)
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
-  ${PLATFORM_SPECIFIC_HEADERS}
-)
+	Classes/AppDelegate.h
+	Classes/HelloWorldScene.h
+	Classes/2DSoftShadow/ens2DSoftShadowNode.h
+	Classes/2DSoftShadow/layer_2DSoftShadow.h
+	Classes/2DSoftShadow/scene_2DSoftShadow.h
+	Classes/AppDelegate.h
+	Classes/HelloWorldScene.h
+	Classes/break/ensBreakNode.h
+	Classes/break/layer_break.h
+	Classes/break/scene_break.h
+	Classes/chooseDemoUI/chooseLayer.h
+	Classes/chooseDemoUI/chooseScene.h
+	Classes/colorAdjust/ensColorAdjustNode.h
+	Classes/colorAdjust/layer_colorAdjust.h
+	Classes/colorAdjust/scene_colorAdjust.h
+	Classes/common/ensCommon.h
+	Classes/common/ensDefine.h
+	Classes/common/ensFunc.h
+	Classes/common/ensGLProgramWithUnifos.h
+	Classes/common/ensIndexVBO.h
+	Classes/common/ensMath.h
+	Classes/common/ensMesh.h
+	Classes/common/ensSimpleClasses.h
+	Classes/ghost-like/ensGhostNode.h
+	Classes/ghost-like/layer_ghostlike.h
+	Classes/ghost-like/scene_ghostlike.h
+	Classes/laser/ensLaserLayer.h
+	Classes/laser/laserScene.h
+	Classes/lightningBolt/ensLightningBoltNode.h
+	Classes/lightningBolt/layer_lightningBolt.h
+	Classes/lightningBolt/scene_lightningBolt.h
+	Classes/normalMapped/ensNormalMappedNode.h
+	Classes/normalMapped/layer_normalMapped.h
+	Classes/normalMapped/scene_normalMapped.h
+	Classes/ripple/ensRippleNode.h
+	Classes/ripple/layer_ripple.h
+	Classes/ripple/scene_ripple.h
+	Classes/ripple_horizontal/ensRipple_horizontalNode.h
+	Classes/ripple_horizontal/layer_ripple_horizontal.h
+	Classes/ripple_horizontal/scene_ripple_horizontal.h
+	Classes/shatter/ensShatterNode.h
+	Classes/shatter/layer_shatter.h
+	Classes/shatter/scene_shatter.h
+	Classes/splash/__multiSpotLightLayer.h
+	Classes/splash/ensSplashLayer.h
+	Classes/splash/layer_splash.h
+	Classes/splash/scene_splash.h
+	Classes/tail/ensTailNode.h
+	Classes/tail/layer_tail.h
+	Classes/tail/scene_tail.h
+	Classes/tinyWingsTerrain/ensTinyWingsTerrainNode.h
+	Classes/tinyWingsTerrain/layer_tinyWingsTerrain.h
+	Classes/tinyWingsTerrain/scene_tinyWingsTerrain.h
+	${PLATFORM_SPECIFIC_HEADERS}
+	)
 
 
 # Configure libcocos2d:
@@ -163,12 +264,12 @@ add_subdirectory(${COCOS2D_ROOT})
 
 # MyGame
 if( ANDROID )
-    add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
-    IF(CMAKE_BUILD_TYPE MATCHES RELEASE)
-        ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
-    ENDIF()
+	add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
+	IF(CMAKE_BUILD_TYPE MATCHES RELEASE)
+		ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
+	ENDIF()
 else()
-    add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
+	add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)
@@ -176,22 +277,22 @@ target_link_libraries(${APP_NAME} cocos2d)
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 
 set_target_properties(${APP_NAME} PROPERTIES
-     RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}")
+	RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}")
 
 if ( WIN32 )
-  #also copying dlls to binary directory for the executable to run
-  pre_build(${APP_NAME}
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/Resources
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources ${APP_BIN_DIR}/Resources
-    COMMAND ${CMAKE_COMMAND} -E copy ${COCOS2D_ROOT}/external/win32-specific/gles/prebuilt/glew32.dll ${APP_BIN_DIR}/${CMAKE_BUILD_TYPE}
-	COMMAND ${CMAKE_COMMAND} -E copy ${COCOS2D_ROOT}/external/win32-specific/zlib/prebuilt/zlib1.dll ${APP_BIN_DIR}/${CMAKE_BUILD_TYPE}
-	)
+	#also copying dlls to binary directory for the executable to run
+	pre_build(${APP_NAME}
+		COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/Resources
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources ${APP_BIN_DIR}/Resources
+		COMMAND ${CMAKE_COMMAND} -E copy ${COCOS2D_ROOT}/external/win32-specific/gles/prebuilt/glew32.dll ${APP_BIN_DIR}/${CMAKE_BUILD_TYPE}
+		COMMAND ${CMAKE_COMMAND} -E copy ${COCOS2D_ROOT}/external/win32-specific/zlib/prebuilt/zlib1.dll ${APP_BIN_DIR}/${CMAKE_BUILD_TYPE}
+		)
 elseif( ANDROID )
 
 else()
-  pre_build(${APP_NAME}
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/Resources
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources ${APP_BIN_DIR}/Resources
-    )
+	pre_build(${APP_NAME}
+		COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/Resources
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources ${APP_BIN_DIR}/Resources
+		)
 
 endif()
