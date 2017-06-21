@@ -1,3 +1,66 @@
-#when copy project folder from MAC to windows, some .DS_Store and ._xxx files appear. ignore them.
-*.DS_Store
-*._*
+# Ignore everything under this directory
+*
+
+# But not these files:
+
+# Don't ignore the .gitignore (obviously):
+!/.gitignore
+
+# The Game Logic and the Sprites, Sounds, etc:
+!/Classes/**/*
+!/Resources/**/*
+!/SVGs/**/*
+!/TTFs/**/*
+!/Text/**/*
+!/2DTextures/**/*
+# The external editor projects
+!/EditorProjects/**/*
+
+# The cmake configuration file:
+!/CMakeLists.txt
+
+# Vim Session and Game Notes:
+!/last_vim_session.vim
+#!/game_notes
+!/game_notes.adoc
+
+# The Vim - YouCompleteMe configuration file
+!/.ycm_extra_conf.py
+
+# The SDKBOX auto configuration json
+!/.sdkbox_packages.json
+
+# My own sdkbox configuration file to know which plugins I want to have added previously
+!/.sdkbox_plugins
+
+# The ctags file
+!/tags
+
+# The Android make file and related files (for building the .apk from the command line):
+!/proj.android/jni/Android.mk
+!/proj.android/jni/Application.mk
+!/proj.android/AndroidManifest.xml
+!/proj.android/src/org/cocos2dx/cpp/AppActivity.java
+!/proj.android/ant.properties
+!/proj.android/res/**/*
+
+# The Microsoft Visual Studio (win32):
+!/proj.win32/*.vcxproj
+!/proj.win32/*.vcxproj.filters
+
+# The Microsoft Visual Studio (win8.1-univeral):
+!/proj.win8.1-universal/App.Shared/*.Shared.vcxitems
+!/proj.win8.1-universal/App.Shared/*.Shared.vcxitems.filters
+
+# The Microsoft Visual Studio (win10):
+!/proj.win10/App/*.vcxproj
+!/proj.win10/App/*.vcxproj.filters
+
+# The Xcode project files:
+!/proj.ios_mac/*.xcodeproj/project.pbxproj
+
+# If any of the files above are under subdirectories, don't ignore them:
+!*/
+
+# Ignore Mac OS .DS_Store files
+**/*.DS_Store
