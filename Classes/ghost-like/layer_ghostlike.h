@@ -17,8 +17,8 @@ using namespace cocos2d;
 #include "cocos-ext.h"
 using namespace cocos2d::extension;
 #include "ensGhostNode.h"
-#include "CCControlButton.h"
-#include "CCControl.h"
+#include "GUI/CCControlExtension/CCControlButton.h"
+#include "GUI/CCControlExtension/CCControl.h"
 using namespace ens;
 class Clayer_ghostlike : public CCLayer
 {

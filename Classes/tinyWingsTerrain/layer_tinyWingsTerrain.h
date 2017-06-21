@@ -17,7 +17,7 @@ using namespace cocos2d;
 #include "cocos-ext.h"
 using namespace cocos2d::extension;
 #include "ensTinyWingsTerrainNode.h"
-#include "CCControlButton.h"
+#include "GUI/CCControlExtension/CCControlButton.h"
 using namespace ens;
 class Clayer_tinyWingsTerrain : public CCLayer
 {

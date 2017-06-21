@@ -1,5 +1,5 @@
 #include "scene_splash.h"
-#include "CCControlButton.h"
+#include "GUI/CCControlExtension/CCControlButton.h"
 using namespace cocos2d;
 
 bool Cscene_splash::init()

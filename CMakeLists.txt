@@ -113,10 +113,26 @@ include_directories(
 	/usr/include/GLFW
 	${COCOS2D_ROOT}
 	${COCOS2D_ROOT}/cocos
+	${COCOS2D_ROOT}/extensions
 	${COCOS2D_ROOT}/external
 	${COCOS2D_ROOT}/cocos/platform
 	${COCOS2D_ROOT}/cocos/audio/include/
 	Classes
+	Classes/splash
+	Classes/laser
+	Classes/ripple
+	Classes/chooseDemoUI
+	Classes/break
+	Classes/normalMapped
+	Classes/2DSoftShadow
+	Classes/shatter
+	Classes/colorAdjust
+	Classes/tinyWingsTerrain
+	Classes/lightningBolt
+	Classes/ghost-like
+	Classes/ripple_horizontal
+	Classes/tail
+	Classes/common
 	)
 if ( WIN32 )
 	include_directories(
@@ -296,3 +312,4 @@ else()
 		)
 
 endif()
+

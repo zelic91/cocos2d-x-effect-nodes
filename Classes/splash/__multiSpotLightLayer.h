@@ -6,6 +6,7 @@
 #include <iostream>
 using namespace std;
 #include "cocos2d.h"
+#include "renderer/CCQuadCommand.h"
 using namespace cocos2d;
 #include "ensCommon.h"
 class __Cspot{
@@ -34,7 +35,7 @@ public:
     string m_texFileName;
 };
 
-class __ChighlightSprite:public CCSprite
+class __ChighlightSprite:public Sprite
 {
 public:
     __ChighlightSprite(){
@@ -90,6 +91,7 @@ public:
         program->passUnifoValue1f("u_highlight", m_highlight);
         //draw quad
         {
+		QuadCommand _quadCommand;
             _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
             renderer->addCommand(&_quadCommand);
         }
@@ -170,6 +172,7 @@ public:
         _passUnifoAndBindTexCommand.func = CC_CALLBACK_0(__CmetaBallSprite::onPassUnifoAndBindTex, this,transform,flags);
         Director::getInstance()->getRenderer()->addCommand(&_passUnifoAndBindTexCommand);
         //draw quad
+		QuadCommand _quadCommand;
         _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
         renderer->addCommand(&_quadCommand);
         

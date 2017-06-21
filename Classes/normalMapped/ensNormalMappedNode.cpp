@@ -1,5 +1,6 @@
 
 #include "ensNormalMappedNode.h"
+#include "renderer/CCQuadCommand.h"
 
 namespace_ens_begin
 bool CnormalMappedSprite::init(const string&texFileName,const string&normalMapFileName)
@@ -109,6 +110,7 @@ void CnormalMappedSprite::draw(Renderer* renderer, const Mat4 &transform, uint32
         //if we use _quadCommand to draw we must use noMV shader.
         //because (if i am not seeing wrong) in _quadCommand modelview is applied to vertex via cpu and at the same time modelview is passed in to shader.
         //shit!
+		QuadCommand _quadCommand;
         _quadCommand.init(_globalZOrder, _texture->getName(), getGLProgramState(), _blendFunc, &_quad, 1, transform);
         renderer->addCommand(&_quadCommand);
     }

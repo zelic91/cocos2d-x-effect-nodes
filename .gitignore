@@ -41,7 +41,6 @@
 !/proj.android/jni/Application.mk
 !/proj.android/AndroidManifest.xml
 !/proj.android/src/org/cocos2dx/cpp/AppActivity.java
-!/proj.android/ant.properties
 !/proj.android/res/**/*
 
 # The Microsoft Visual Studio (win32):
